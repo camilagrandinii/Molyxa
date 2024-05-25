@@ -6,6 +6,9 @@
   - **Frontend:** built using React to provide users with a simple interface to create mood boards by selecting elements from a predefined list and placing them in a workspace.
   - **Backend:** powered by Python and Flask, offers an API for adding and removing elements from the mood board. Additionally, it integrates a save functionality to store the mood board's state in a PostgreSQL database.
 
+<h2>Getting Started with Create React App</h2> 
+This project was bootstrapped with <a href="https://github.com/facebook/create-react-app">Create React App</a>.
+
 <h2>Find me Here!</h2>
 <div> 
   <a href="https://instagram.com/caca_lacerda" target="_blank"><img src="https://img.shields.io/badge/-Instagram-%23E4405F?style=for-the-badge&logo=instagram&logoColor=white" target="_blank"></a>
@@ -31,3 +34,4 @@
 
 </div>
 
+[create-react-app]: https://github.com/facebook/create-react-app
