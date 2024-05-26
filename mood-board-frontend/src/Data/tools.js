@@ -1,8 +1,10 @@
-import PhotoIcon from '@mui/icons-material/Photo';
+import PhotoIcon from "@mui/icons-material/Photo";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
-import WallpaperIcon from '@mui/icons-material/Wallpaper';
+import WallpaperIcon from "@mui/icons-material/Wallpaper";
 import IosShareRoundedIcon from "@mui/icons-material/IosShareRounded";
-import CreateIcon from '@mui/icons-material/Create';
+import CreateIcon from "@mui/icons-material/Create";
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
+
 // below is list of components that appear in sidebar
 // id - unique id
 // title - title of tool
@@ -35,8 +37,8 @@ export const tools = [
   },
   {
     id: 4,
-    title: "Share",
-    icon: <IosShareRoundedIcon />,
-    component: "shareSection",
+    title: "Save",
+    icon: <SaveAltIcon />,
+    component: "saveSection",
   },
 ];

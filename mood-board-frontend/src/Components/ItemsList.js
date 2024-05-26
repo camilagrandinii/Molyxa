@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import './Styles/itemsList.css';
-import { tools } from '../Data/tools';
+import React, { useState, useEffect } from "react";
+import "./Styles/itemsList.css";
+import { tools } from "../Data/tools";
 
-import ImagesSection from './ItemsListComponents/ImagesSection';
-import BackgroundsSection from './ItemsListComponents/BackgroundsSection';
+import ImagesSection from "./ItemsListComponents/ImagesSection";
+import BackgroundsSection from "./ItemsListComponents/BackgroundsSection";
 import UploadSection from "./ItemsListComponents/UploadSection";
-import ShareSection from "./ItemsListComponents/ShareSection";
 import TextSection from "./ItemsListComponents/TextSection";
-import ToolsBar from './ToolsBar';
+import SaveSection from "./ItemsListComponents/SaveSection";
+import ToolsBar from "./ToolsBar";
 
 import ExpandLessRoundedIcon from "@mui/icons-material/ExpandLessRounded";
 
@@ -18,28 +18,27 @@ function ItemsList(props) {
     imagesSection: ImagesSection,
     backgroundsSection: BackgroundsSection,
     uploadSection: UploadSection,
-    shareSection: ShareSection,
-    textSection: TextSection
+    textSection: TextSection,
+    saveSection: SaveSection,
   };
   const [sidebarCollapse, setSidebarCollapse] = useState(true);
 
   const changeSelectedTool = (id) => {
-    setSelectedTools(id)
-  }
+    setSelectedTools(id);
+  };
 
   const openMenuOnClick = () => {
     sidebarCollapse ? setSidebarCollapse(false) : setSidebarCollapse(true);
-  }
+  };
 
   const handleCanvasResizeOnSidebarChange = () => {
     props.resizeCanvasOnSidebarChange();
-  }
+  };
 
   // everytime when sidebar state changes function in Canvas.js is being called for resizing canvas dimensions
   useEffect(() => {
     handleCanvasResizeOnSidebarChange();
   }, [sidebarCollapse]);
-
 
   return (
     <div
@@ -47,7 +46,9 @@ function ItemsList(props) {
         sidebarCollapse ? "sidebarOpen" : "sidebarClosed"
       }`}
     >
-      <div className="expandButton" onClick={() => openMenuOnClick()}><ExpandLessRoundedIcon /></div>
+      <div className="expandButton" onClick={() => openMenuOnClick()}>
+        <ExpandLessRoundedIcon />
+      </div>
       <div className="itemsListBody">
         <ToolsBar changeSelectedTool={changeSelectedTool} />
 
