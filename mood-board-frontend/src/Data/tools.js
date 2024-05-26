@@ -13,15 +13,15 @@ import SaveAltIcon from "@mui/icons-material/SaveAlt";
 export const tools = [
   {
     id: 0,
-    title: "Quotes",
-    icon: <CreateIcon />,
-    component: "textSection",
-  },
-  {
-    id: 1,
     title: "Photos",
     icon: <PhotoIcon />,
     component: "imagesSection",
+  },
+  {
+    id: 1,
+    title: "Quotes",
+    icon: <CreateIcon />,
+    component: "textSection",
   },
   {
     id: 2,

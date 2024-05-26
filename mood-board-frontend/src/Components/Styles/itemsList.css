@@ -165,7 +165,7 @@
   padding: 10px 50px;
   border-radius: 15px;
   color: white;
-  background-color: #EF5F63;
+  background-color: #f1af4a;
   font-weight: 600;
   display: flex;
   flex-direction: row;
@@ -175,7 +175,7 @@
   cursor: pointer;
 }
 .uploadImageButton:hover {
-  background-color: #c04c50;
+  background-color: #c48322;
 }
 .uploadTooltip {
   color: #fff;
@@ -214,7 +214,7 @@
     text-align: center;
 }
 .downloadImage {
-  background-color: #EF5F63;
+  background-color: #f1af4a;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -233,7 +233,7 @@
   cursor: pointer;
 }
 .downloadImage:hover {
-  background-color: #c04c50;
+  background-color: #c48322;
 }
 /* end of sharing section */
 /* expand button */
