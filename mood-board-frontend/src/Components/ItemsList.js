@@ -64,6 +64,7 @@ function ItemsList(props) {
                 addToBackground={props.addToBackground}
                 removeBackground={props.removeBackground}
                 stageRef={props.stageRef}
+                images={props.images}
               />
             );
           }

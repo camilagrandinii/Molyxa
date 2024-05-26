@@ -1,29 +1,35 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://camila:1234@localhost:5432/molyxa'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class MoodBoardItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     elementCategory = db.Column(db.String(50))
     photoCategory = db.Column(db.String(50))
-    source = db.Column(db.String(200))
+    src = db.Column(db.String(200))
     name = db.Column(db.String(200))
     mood_board_id = db.Column(db.Integer, db.ForeignKey('mood_board.id'))
+    x = db.Column(db.Integer)
+    y = db.Column(db.Integer)
 
     def as_dict(self):
         return {
             'id': self.id,
             'elementCategory': self.elementCategory,
             'photoCategory': self.photoCategory,
-            'source': self.source,
+            'src': self.src,
             'name': self.name,
-            'mood_board_id': self.mood_board_id
+            'mood_board_id': self.mood_board_id,
+            'x': self.x,
+            'y': self.y
         }
 
 class MoodBoard(db.Model):
@@ -59,7 +65,13 @@ def add_to_mood_board():
     db.session.add(mood_board)
     
     for item_data in mood_board_items:
-        new_item = MoodBoardItem(elementCategory=item_data['elementCategory'], photoCategory=item_data['photoCategory'], source=item_data['source'], name=item_data['name'], moodboard=mood_board)
+        new_item = MoodBoardItem(elementCategory=item_data['elementCategory'], 
+                                 photoCategory=item_data['photoCategory'], 
+                                 src=item_data['src'], 
+                                 name=item_data['name'],
+                                 x=item_data['x'],
+                                 y=item_data['y'],
+                                 moodboard=mood_board)
         db.session.add(new_item)
     
     db.session.commit()
@@ -74,8 +86,10 @@ def add_item_to_mood_board(mood_board_id):
     new_item = MoodBoardItem(
         elementCategory=data['elementCategory'],
         photoCategory=data['photoCategory'],
-        source=data['source'],
+        src=data['src'],
         name=data['name'],
+        x=data['x'],
+        y=data['y'],
         mood_board=mood_board
     )
     

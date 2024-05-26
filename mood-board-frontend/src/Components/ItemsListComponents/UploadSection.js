@@ -9,7 +9,7 @@ function UploadSection(props) {
 
   // clear localstorage on tab close to prevent loading blank images
   window.onbeforeunload = function () {
-    const emptyArray = []
+    const emptyArray = [];
     localStorage.setItem("uploadedImages", JSON.stringify(emptyArray));
   };
 
@@ -21,10 +21,7 @@ function UploadSection(props) {
 
   // adding images to localstorage every upload
   useEffect(() => {
-    localStorage.setItem(
-      "uploadedImages",
-      JSON.stringify(uploadedImages)
-    );
+    localStorage.setItem("uploadedImages", JSON.stringify(uploadedImages));
   }, [uploadedImages]);
 
   const UploadButton = () => {
@@ -62,10 +59,10 @@ function UploadSection(props) {
           draggable="true"
           elementcategory={item}
           onDragStart={(e) => {
-            props.onChangeDragUrl(e.target.src);
+            props.onChangeDragUrl(e.target);
           }}
           onClick={(e) => {
-            props.handleAddOnClick(e.target.src);
+            props.handleAddOnClick(e.target);
           }}
         />
       </div>
@@ -79,7 +76,6 @@ function UploadSection(props) {
     }
     return false;
   };
-
 
   return (
     <div className="itemsSection">

@@ -5,37 +5,35 @@ import FilterBar from "./filterBar";
 // images can be dragged or cliked for adding it to canvas
 
 function ImagesSection(props) {
-  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   // get images that are declared as photos from /Data/items.json
   const photosFilteredArray = items.filter(
     (el) => el.elementCategory === "photos"
   );
-  
+
   // filter images by selected category
   const filterImagesByCategories = (array) => {
     let filteredArrayToReturn;
-    if(selectedCategory.length > 0) {
+    if (selectedCategory.length > 0) {
       filteredArrayToReturn = array.filter(
         (el) => el.photoCategory === selectedCategory
-      )
+      );
       return filteredArrayToReturn;
     }
     return array;
-  }
+  };
   // array of images ready to display
-  const arrayToDisplay = filterImagesByCategories(photosFilteredArray)
-  
-
+  const arrayToDisplay = filterImagesByCategories(photosFilteredArray);
 
   return (
     <div className="itemsSection">
-      <FilterBar 
-        items={photosFilteredArray} 
-          onChange={(selectedCategory) => {
-            setSelectedCategory(selectedCategory)
-          }}
-        />
+      <FilterBar
+        items={photosFilteredArray}
+        onChange={(selectedCategory) => {
+          setSelectedCategory(selectedCategory);
+        }}
+      />
 
       <div className="itemsWrapper">
         {arrayToDisplay.map((item, i) => (
@@ -45,12 +43,17 @@ function ImagesSection(props) {
               alt=""
               className="itemsImage"
               draggable="true"
-              elementcategory={item.elementCategory}
               onDragStart={(e) => {
-                props.onChangeDragUrl(e.target.src);
+                props.onChangeDragUrl(e.target);
               }}
               onClick={(e) => {
-                props.handleAddOnClick(e.target.src);
+                props.handleAddOnClick({
+                  src: item.source,
+                  elementCategory: item.elementCategory,
+                  mood_board_id: null,
+                  name: item.name,
+                  photoCategory: item.photoCategory,
+                });
               }}
             />
           </div>

@@ -2,32 +2,26 @@ import React from "react";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 
 function SaveSection(props) {
-  // function that creates hyperlink with canvas DataURL as href
-  // programically clicks it to download the image
-  // after download hyperlink is being removed from DOM
   const handleExport = () => {
     const uri = props.stageRef.current.toDataURL();
     const link = document.createElement("a");
-    console.log(uri);
-    console.log(link);
     link.download = "moodboard-export.png";
     link.href = uri;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
-  const handleSave = async () => {
-    // Acessando as fotos salvas no mood board
-    const uploadedImages = localStorage.getItem("uploadedImages");
-    const items = uploadedImages ? JSON.parse(uploadedImages) : [];
 
+  const handleSave = async () => {
     try {
+      const itemsWithoutId = props.images.map(({ id, ...rest }) => rest);
+
       const answer = await fetch("http://localhost:5000/api/mood-board", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: "Moodboard", items: items }),
+        body: JSON.stringify({ name: "Moodboard", items: itemsWithoutId }),
       });
 
       if (answer.ok) {

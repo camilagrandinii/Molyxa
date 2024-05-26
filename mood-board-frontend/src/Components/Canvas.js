@@ -8,12 +8,12 @@ import CanvasBackground from "./CanvasBackground";
 function Canvas() {
   // static canvas dimensions used for scaling ratio
   const stageWidth = 900,
-        stageHeight = 600;
+    stageHeight = 600;
   // dynamic canvas dimensions
   const [stageDimensions, setStageDimensions] = useState({
     width: stageWidth,
     height: stageHeight,
-    scale: 1
+    scale: 1,
   });
   // stageRef is used for handling callbacks - example: getting canvas positions after drag and rop
   const stageRef = useRef();
@@ -28,7 +28,7 @@ function Canvas() {
   const [backgroundImage, setBackgroundImage] = useState();
   // selectedId is used for keeping selected image to handle resizes, z-index priority etc.
   const [selectedId, setSelectedId] = useState(null);
-  
+
   // function to handle resize of canvas dimensions based on window width or when sidebar is closed or opened
   const handleResize = () => {
     let sceneWidth = containerRef.current.clientWidth;
@@ -75,30 +75,29 @@ function Canvas() {
   const handleOnDrop = (e) => {
     e.preventDefault();
     stageRef.current.setPointersPositions(e);
-    setImages(
-      images.concat([
-        {
-          ...stageRef.current.getPointerPosition(),
-          src: dragUrl,
-        },
-      ])
-    );
+    const newImage = {
+      ...stageRef.current.getPointerPosition(),
+      src: dragUrl,
+    };
+    setImages(images.concat([newImage]));
   };
 
   // function to handle adding images on click
-  const handleAddOnClick = (src) => {
-    let centerX = stageDimensions.width / 2
-    let centerY = stageDimensions.height / 2
-    setImages(
-      images.concat([
-        {
-          x: centerX,
-          y: centerY,
-          src: src,
-        },
-      ])
-    );
-  }
+  const handleAddOnClick = (target) => {
+    console.log(target);
+    let centerX = stageDimensions.width / 2;
+    let centerY = stageDimensions.height / 2;
+    const newImage = {
+      x: centerX,
+      y: centerY,
+      src: target.src,
+      elementCategory: target.elementCategory,
+      mood_board_id: null, // Example value, you may need to adjust this
+      name: target.name,
+      photoCategory: target.photoCategory,
+    };
+    setImages(images.concat([newImage]));
+  };
 
   // function to handle adding background image of canvas
   const addToBackground = (backgroundUrl) => {
@@ -107,7 +106,7 @@ function Canvas() {
 
   // function to handle removing background image of canvas
   const removeBackground = () => {
-    setBackgroundImage(null)
+    setBackgroundImage(null);
   };
 
   // used for passing image id to image attributes
@@ -125,7 +124,7 @@ function Canvas() {
     setTimeout(() => {
       handleResize();
     }, 420);
-  }
+  };
 
   return (
     <div className="workContainer">
@@ -137,6 +136,7 @@ function Canvas() {
         removeBackground={removeBackground}
         resizeCanvasOnSidebarChange={resizeCanvasOnSidebarChange}
         stageRef={stageRef}
+        images={images}
       />
 
       <div className="canvasWrap">
@@ -173,6 +173,10 @@ function Canvas() {
                     image={image}
                     shapeProps={passImageWithId(image, `image${i}`)}
                     id={`image${i}`}
+                    elementCategory={image.elementCategory}
+                    name={image.name}
+                    photoCategory={image.photoCategory}
+                    source={image.source}
                     key={i}
                     isSelected={i === selectedId}
                     onSelect={() => {

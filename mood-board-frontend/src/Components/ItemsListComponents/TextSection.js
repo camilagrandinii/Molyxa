@@ -18,10 +18,10 @@ function TextSection(props) {
               draggable="true"
               elementcategory={item.elementCategory}
               onDragStart={(e) => {
-                props.onChangeDragUrl(e.target.src);
+                props.onChangeDragUrl(e.target);
               }}
               onClick={(e) => {
-                props.handleAddOnClick(e.target.src);
+                props.handleAddOnClick(e.target);
               }}
             />
           </div>
