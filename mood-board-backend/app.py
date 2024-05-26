@@ -4,38 +4,26 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://camila:1234@localhost:5432/moodboard'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://camila:1234@localhost:5432/molyxa'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-class Element(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    category = db.Column(db.String(50))
-    photoCategory = db.Column(db.String(50))
-    src = db.Column(db.String(200))
-
-    def as_dict(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'category': self.category,
-            'photoCategory': self.photoCategory,
-            'src': self.src
-        }
-
 class MoodBoardItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String(50))
-    src = db.Column(db.String(200))
-    text = db.Column(db.String(200))
+    elementCategory = db.Column(db.String(50))
+    photoCategory = db.Column(db.String(50))
+    source = db.Column(db.String(200))
+    name = db.Column(db.String(200))
+    mood_board_id = db.Column(db.Integer, db.ForeignKey('mood_board.id'))
 
     def as_dict(self):
         return {
             'id': self.id,
-            'type': self.type,
-            'src': self.src,
-            'text': self.text
+            'elementCategory': self.elementCategory,
+            'photoCategory': self.photoCategory,
+            'source': self.source,
+            'name': self.name,
+            'mood_board_id': self.mood_board_id
         }
 
 class MoodBoard(db.Model):
@@ -71,15 +59,41 @@ def add_to_mood_board():
     db.session.add(mood_board)
     
     for item_data in mood_board_items:
-        # Aqui assumimos que 'type' no seu JSON se refere ao tipo do item de moodboard,
-        # então vamos usar 'type' para criar um novo item de MoodBoardItem.
-        # Se o JSON fornecido se refere a um campo diferente, você precisa ajustar isso de acordo.
-        new_item = MoodBoardItem(type=item_data['type'], src=item_data['src'], text=item_data['text'], moodboard=mood_board)
+        new_item = MoodBoardItem(elementCategory=item_data['elementCategory'], photoCategory=item_data['photoCategory'], source=item_data['source'], name=item_data['name'], moodboard=mood_board)
         db.session.add(new_item)
     
     db.session.commit()
     
     return jsonify(mood_board.as_dict()), 201
+
+@app.route('/api/mood-board/<int:mood_board_id>/add-item', methods=['POST'])
+def add_item_to_mood_board(mood_board_id):
+    data = request.get_json()
+    mood_board = MoodBoard.query.get_or_404(mood_board_id)
+    
+    new_item = MoodBoardItem(
+        elementCategory=data['elementCategory'],
+        photoCategory=data['photoCategory'],
+        source=data['source'],
+        name=data['name'],
+        mood_board=mood_board
+    )
+    
+    db.session.add(new_item)
+    db.session.commit()
+    
+    return jsonify(new_item.as_dict()), 201
+
+@app.route('/api/mood-board/<int:mood_board_id>/remove-item/<int:item_id>', methods=['DELETE'])
+def remove_item_from_mood_board(mood_board_id, item_id):
+    mood_board = MoodBoard.query.get_or_404(mood_board_id)
+    item = MoodBoardItem.query.filter_by(id=item_id, mood_board_id=mood_board_id).first_or_404()
+    
+    db.session.delete(item)
+    db.session.commit()
+    
+    return jsonify({'message': 'Item removed from moodboard'}), 200
+
 
 @app.route('/api/mood-board/<int:mood_board_id>', methods=['DELETE'])
 def remove_mood_board(mood_board_id):
@@ -87,6 +101,19 @@ def remove_mood_board(mood_board_id):
     db.session.delete(mood_board)
     db.session.commit()
     return jsonify({'message': 'Moodboard removed'}), 200
+
+@app.route('/api/clear-moodboards', methods=['DELETE'])
+def clear_moodboards():
+    try:
+        # Deleta todos os itens do moodboard primeiro
+        MoodBoardItem.query.delete()
+        # Em seguida, deleta todos os moodboards
+        MoodBoard.query.delete()
+        db.session.commit()
+        return jsonify({'message': 'All moodboards cleared successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
