@@ -17,14 +17,9 @@ function SaveSection(props) {
     document.body.removeChild(link);
   };
   const handleSave = async () => {
-    const elementos = props.stageRef.current.getChildren();
-
-    const items = elementos.map((elemento) => ({
-      name: elemento.name,
-      category: elemento.elementCategory,
-      photoCategory: elemento.photoCategory,
-      src: elemento.source,
-    }));
+    // Acessando as fotos salvas no mood board
+    const uploadedImages = localStorage.getItem("uploadedImages");
+    const items = uploadedImages ? JSON.parse(uploadedImages) : [];
 
     try {
       const answer = await fetch("http://localhost:5000/api/mood-board", {
@@ -36,12 +31,12 @@ function SaveSection(props) {
       });
 
       if (answer.ok) {
-        console.log("Estado do moodboard salvo com sucesso!");
+        console.log("Moodboard state saved successfully!");
       } else {
-        console.error("Erro ao salvar o estado do moodboard:", answer.status);
+        console.error("Error saving moodboard state:", answer.status);
       }
-    } catch (erro) {
-      console.error("Erro ao enviar requisição:", erro);
+    } catch (error) {
+      console.error("Error sending request:", error);
     }
   };
 
