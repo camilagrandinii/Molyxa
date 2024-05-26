@@ -1,0 +1,134 @@
+[
+  {
+    "name": "Molyxa Logo",
+    "elementCategory": "photos",
+    "photoCategory": "logo",
+    "source": "images/molyxa-logo.jpeg"
+  },
+  {
+    "name": "Corner Table",
+    "elementCategory": "photos",
+    "photoCategory": "deco",
+    "source": "images/corner-light.jpg"
+  },
+  {
+    "name": "Room 1",
+    "elementCategory": "photos",
+    "photoCategory": "room",
+    "source": "images/room-interior.jpg"
+  },
+  {
+    "name": "Living Room 1",
+    "elementCategory": "photos",
+    "photoCategory": "living-room",
+    "source": "images/sofa-table.jpg"
+  },
+  {
+    "name": "Sofa",
+    "elementCategory": "photos",
+    "photoCategory": "living-room",
+    "source": "images/sofa.jpg"
+  },
+  {
+    "name": "House Entrance",
+    "elementCategory": "photos",
+    "photoCategory": "entrance",
+    "source": "images/house-entrance.jpg"
+  },
+  {
+    "name": "Reading Corner",
+    "elementCategory": "photos",
+    "photoCategory": "deco",
+    "source": "images/reading-corner.jpg"
+  },
+  {
+    "name": "House Entrance",
+    "elementCategory": "photos",
+    "photoCategory": "entrance",
+    "source": "images/house-entrance-2.jpg"
+  },
+  {
+    "name": "Tv Room",
+    "elementCategory": "photos",
+    "photoCategory": "living-room",
+    "source": "images/tv-room.jpg"
+  },
+  {
+    "name": "Flowert Corner",
+    "elementCategory": "photos",
+    "photoCategory": "deco",
+    "source": "images/flowery-corner.jpg"
+  },
+  {
+    "name": "Mirror",
+    "elementCategory": "photos",
+    "photoCategory": "deco",
+    "source": "images/mirror.jpg"
+  },
+  {
+    "name": "Decoration Corner",
+    "elementCategory": "photos",
+    "photoCategory": "deco",
+    "source": "images/deco.jpg"
+  },
+  {
+    "name": "Background1",
+    "elementCategory": "backgrounds",
+    "source": "images/background/sky-full-of-stars.jpg"
+  },
+  {
+    "name": "Background2",
+    "elementCategory": "backgrounds",
+    "source": "images/background/cloud-brown.jpg"
+  },
+  {
+    "name": "Background3",
+    "elementCategory": "backgrounds",
+    "source": "images/background/flower-brown.jpg"
+  },
+  {
+    "name": "Background4",
+    "elementCategory": "backgrounds",
+    "source": "images/background/leaf-brown.jpg"
+  },
+  {
+    "name": "Background5",
+    "elementCategory": "backgrounds",
+    "source": "images/background/texture-brown.jpg"
+  },
+  {
+    "name": "Background6",
+    "elementCategory": "backgrounds",
+    "source": "images/background/sand-sea.jpg"
+  },
+  {
+    "name": "Text1",
+    "elementCategory": "texts",
+    "source": "images/text/quote1.jpg"
+  },
+  {
+    "name": "Text2",
+    "elementCategory": "texts",
+    "source": "images/text/quote2.jpg"
+  },
+  {
+    "name": "Text3",
+    "elementCategory": "texts",
+    "source": "images/text/quote3.jpg"
+  },
+  {
+    "name": "Text4",
+    "elementCategory": "texts",
+    "source": "images/text/quote4.jpg"
+  },
+  {
+    "name": "Text5",
+    "elementCategory": "texts",
+    "source": "images/text/quote5.jpg"
+  },
+  {
+    "name": "Text6",
+    "elementCategory": "texts",
+    "source": "images/text/quote6.jpg"
+  }
+]
